@@ -18,6 +18,7 @@ server.get ('/', (req , res )  => f. registerHook (req , res ) ) ;
 server.listen(PORT, () => console.log(`The bot server is runnning on port ${PORT}`));
 server.post('/',(req,res,next) => { 
   
+  
   return f.incoming(req,res,async data => {
     const nlp = await data.content.nlp
     
@@ -40,5 +41,7 @@ server.post('/',(req,res,next) => {
         console.log(e);
         await f.txt(data.sender,"I’m not sure I understand you!")
     }
+    
     })
+
 });
