@@ -16,7 +16,7 @@ class FBeamer{
             let obj = {
                 sender,
                 type:'text',
-                content : message.text
+                content : message
             }
         return obj;
         }
@@ -96,6 +96,29 @@ class FBeamer{
 
         return this.sendMessage(obj);
     }
+
+    //Generic function sending images
+    sendImage(id, url, messaging_type = 'RESPONSE') {
+      
+      let message = {
+          "attachment": {
+              "type": "image",
+              "payload": {
+                  "url": url
+              } 
+          }
+      };
+
+
+      let obj = {
+            messaging_type,
+            recipient : {
+                id
+            },
+            message
+            };
+      return this.sendMessage(obj);
+    };
 }
 
 
