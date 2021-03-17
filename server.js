@@ -1,5 +1,5 @@
 'use strict';
-
+require('dotenv').config();
 const config = require('./config');
 const FBeamer = require('./fbeamer');
 const nlpData = require('./tmdb')
@@ -8,16 +8,16 @@ const bodyparser=require("body-parser");
 
 
 const f = new FBeamer (config.FB) ;
-
 const server = express();
 server.use(bodyparser.json())
 const PORT = process.env.PORT || 3000;
 
 
-server.get ('/', (req , res )  => f. registerHook (req , res ) ) ;
+server.get ('/', (req , res ) => f.registerHook (req , res )) ;
 server.listen(PORT, () => console.log(`The bot server is runnning on port ${PORT}`));
 server.post('/',(req,res,next) => { 
   
+  console.log(req)
   return f.incoming(req,res,async data => {
     const nlp = await data.content.nlp
     
@@ -40,5 +40,7 @@ server.post('/',(req,res,next) => {
         console.log(e);
         await f.txt(data.sender,"I’m not sure I understand you!")
     }
+    
     })
+
 });
